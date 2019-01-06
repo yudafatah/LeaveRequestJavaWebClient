@@ -85,24 +85,12 @@ public class GetAlls extends HttpServlet {
             }
             if (role.contains("Staff")) {
                 ArrayList<HashMap<String, String>> getalllist = lrs.getAllLR(role, id);
+                lrList = getalllist;
+                session.setAttribute("lrList", lrList);
+                session.setAttribute("lrtList", lrtList);
                 if (request.getParameter("param") != null) {
                     String param = request.getParameter("param");
                     if (param.contains("histories")) {
-                        for (int i = 0; i < getalllist.size(); i++) {
-                            HashMap<String, String> lr = new HashMap<String, String>();
-                            lr.put("lrId", getalllist.get(i).get("lrId"));
-                            lr.put("requestDate", getalllist.get(i).get("requestDate"));
-                            lr.put("startDate", getalllist.get(i).get("startDate"));
-                            lr.put("endDate", getalllist.get(i).get("endDate"));
-                            lr.put("lrDuration", getalllist.get(i).get("lrDuration"));
-                            lr.put("noteRequest", getalllist.get(i).get("noteRequest"));
-                            lr.put("requestStatus", getalllist.get(i).get("requestStatus"));
-                            lr.put("image", getalllist.get(i).get("image"));
-                            lr.put("noteReject", getalllist.get(i).get("noteReject"));
-                            lrList.add(lr);
-                        }
-                        session.setAttribute("lrList", lrList);
-                        session.setAttribute("lrtList", lrtList);
                         response.sendRedirect("views/StaffHistories.jsp");
                     }
                     if (param.contains("profile")) {
@@ -111,21 +99,6 @@ public class GetAlls extends HttpServlet {
                         response.sendRedirect("views/Profile.jsp");
                     }
                 } else {
-                    for (int i = 0; i < getalllist.size(); i++) {
-                        HashMap<String, String> lr = new HashMap<String, String>();
-                        lr.put("lrId", getalllist.get(i).get("lrId"));
-                        lr.put("requestDate", getalllist.get(i).get("requestDate"));
-                        lr.put("startDate", getalllist.get(i).get("startDate"));
-                        lr.put("endDate", getalllist.get(i).get("endDate"));
-                        lr.put("lrDuration", getalllist.get(i).get("lrDuration"));
-                        lr.put("noteRequest", getalllist.get(i).get("noteRequest"));
-                        lr.put("requestStatus", getalllist.get(i).get("requestStatus"));
-                        lr.put("image", getalllist.get(i).get("image"));
-                        lr.put("noteReject", getalllist.get(i).get("noteReject"));
-                        lrList.add(lr);
-                    }
-                    session.setAttribute("lrList", lrList);
-                    session.setAttribute("lrtList", lrtList);
                     response.sendRedirect("views/StaffPage.jsp");
                 }
             } else {
@@ -138,34 +111,8 @@ public class GetAlls extends HttpServlet {
                 session.setAttribute("lrrList", lrrList);
                 session.setAttribute("Id", id);
                 if (request.getParameter("param") == null) {
-//                    for (int i = 0; i < getalllist1.size(); i++) {
-//                        lr.put("lrId", getalllist1.get(i).get("lrId"));
-//                        lr.put("requestDate", getalllist1.get(i).get("requestDate"));
-//                        lr.put("startDate", getalllist1.get(i).get("startDate"));
-//                        lr.put("endDate", getalllist1.get(i).get("endDate"));
-//                        lr.put("lrDuration", getalllist1.get(i).get("lrDuration"));
-//                        lr.put("noteRequest", getalllist1.get(i).get("noteRequest"));
-//                        lr.put("requestStatus", getalllist1.get(i).get("requestStatus"));
-//                        lr.put("image", getalllist1.get(i).get("image"));
-//                        lr.put("noteReject", getalllist1.get(i).get("noteReject"));
-//                        lr.put("empname", getalllist2.get(i).get("empname"));
-//                        lrList.add(lr);
-//                    }
                     response.sendRedirect("views/ManagerPage.jsp");
                 } else {
-//                    for (int i = 0; i < getalllist1.size(); i++) {
-//                        lr.put("lrId", getalllist1.get(i).get("lrId"));
-//                        lr.put("requestDate", getalllist1.get(i).get("requestDate"));
-//                        lr.put("startDate", getalllist1.get(i).get("startDate"));
-//                        lr.put("endDate", getalllist1.get(i).get("endDate"));
-//                        lr.put("lrDuration", getalllist1.get(i).get("lrDuration"));
-//                        lr.put("noteRequest", getalllist1.get(i).get("noteRequest"));
-//                        lr.put("requestStatus", getalllist1.get(i).get("requestStatus"));
-//                        lr.put("image", getalllist1.get(i).get("image"));
-//                        lr.put("noteReject", getalllist1.get(i).get("noteReject"));
-//                        lr.put("empname", getalllist2.get(i).get("empname"));
-//                        lrList.add(lr);
-//                    }
                     response.sendRedirect("views/ManagerHistories.jsp");
                 }
             }

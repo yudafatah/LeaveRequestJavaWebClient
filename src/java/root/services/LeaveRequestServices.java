@@ -32,6 +32,7 @@ public class LeaveRequestServices {
     public ArrayList<HashMap<String, String>> getAllLR(String role, String id) {
         // hashmap for leave requests list
         ArrayList<HashMap<String, String>> lrList = new ArrayList<>();
+        lrList.removeAll(lrList);
         try {
             String webService = "http://localhost:8383/lr/leaverequests/" + id;
             URL url = new URL(webService);
@@ -61,25 +62,17 @@ public class LeaveRequestServices {
                             JSONObject dataObj = dataArr.getJSONObject(i);
                             // temporary hashmap for single leave request
                             HashMap<String, String> lr = new HashMap<>();
-                            int lrId = dataObj.getInt("lrId");
-                            String requestDate = dataObj.get("requestDate").toString();
-                            String startDate = dataObj.get("startDate").toString();
-                            String endDate = dataObj.get("endDate").toString();
-                            int lrDuration = dataObj.getInt("lrDuration");
-                            String noteRequest = dataObj.getString("noteRequest");
-                            String requestStatus = dataObj.getString("requestStatus");
-                            String image = dataObj.get("image").toString();
-                            String noteReject = dataObj.get("noteReject").toString();
-
-                            lr.put("lrId", lrId + "");
-                            lr.put("requestDate", requestDate);
-                            lr.put("startDate", startDate);
-                            lr.put("endDate", endDate);
-                            lr.put("lrDuration", lrDuration + "");
-                            lr.put("noteRequest", noteRequest);
-                            lr.put("requestStatus", requestStatus);
-                            lr.put("image", image);
-                            lr.put("noteReject", noteReject);
+                            lr.put("lrId", dataObj.getString("lrId"));
+                            lr.put("requestDate", dataObj.getString("requestDate"));
+                            lr.put("startDate", dataObj.getString("startDate"));
+                            lr.put("endDate", dataObj.getString("endDate"));
+                            lr.put("lrDuration", dataObj.getString("lrDuration"));
+                            lr.put("noteRequest", dataObj.getString("noteRequest"));
+                            lr.put("requestStatus", dataObj.getString("requestStatus"));
+                            lr.put("image", dataObj.getString("image"));
+                            lr.put("noteReject", dataObj.get("noteReject").toString());
+                            lr.put("empName", dataObj.getString("empName"));
+                            lr.put("typeLr", dataObj.getString("typeLr"));
 
                             lrList.add(lr);
                         }
@@ -192,8 +185,8 @@ public class LeaveRequestServices {
                             String x = relation.getString(i);
 //                            lr.put("empname", x);
                             relationList.add(x);
-                            System.out.println(i+" " +relationList.get(i));
-                            
+                            System.out.println(i + " " + relationList.get(i));
+
                         }
                         System.out.println(relationList.get(25));
                         return relationList;
@@ -204,7 +197,7 @@ public class LeaveRequestServices {
                         System.out.println("Failed to load data from server");
                     }
                 }
-                
+
             }
         } catch (IOException | JSONException e) {
             System.out.println(e);
@@ -232,11 +225,11 @@ public class LeaveRequestServices {
                     // make output become json object
                     HashMap<String, String> lr = new HashMap<>();
                     JSONObject jSONObject = new JSONObject(output);
-                    lr.put("lrId", jSONObject.getInt("lrId") + "");
+                    lr.put("lrId", jSONObject.getInt("lrId")+"");
                     lr.put("requestDate", jSONObject.get("requestDate").toString());
                     lr.put("startDate", jSONObject.get("startDate").toString());
                     lr.put("endDate", jSONObject.get("endDate").toString());
-                    lr.put("lrDuration", jSONObject.getInt("lrDuration") + "");
+                    lr.put("lrDuration", jSONObject.getInt("lrDuration")+"");
                     lr.put("noteRequest", jSONObject.getString("noteRequest"));
                     lr.put("requestStatus", jSONObject.getString("requestStatus"));
                     lr.put("image", jSONObject.get("image").toString());
@@ -250,7 +243,7 @@ public class LeaveRequestServices {
         }
         return null;
     }
-    
+
     public String updateLRApprove(String id) {
         try {
             String webService = "http://localhost:8383/lr/leaverequestapprove/" + id + "/";
@@ -266,7 +259,7 @@ public class LeaveRequestServices {
         }
         return null;
     }
-    
+
     public String cancelLR(String id) {
         try {
             String webService = "http://localhost:8383/lr/leaverequestcancel/" + id + "/";
@@ -282,10 +275,10 @@ public class LeaveRequestServices {
         }
         return null;
     }
-    
+
     public String createLR(String id, String typelr, String startdate, String enddate, String notereq, String savepath) {
         try {
-            String webService = "http://localhost:8383/lr/leaverequestcreate/" + id + "/" +typelr+ "/" +startdate+"/"+enddate+"/"+notereq+"/"+savepath+"/";
+            String webService = "http://localhost:8383/lr/leaverequestcreate/" + id + "/" + typelr + "/" + startdate + "/" + enddate + "/" + notereq + "/" + savepath + "/";
             URL url = new URL(webService);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("POST");
@@ -298,5 +291,5 @@ public class LeaveRequestServices {
         }
         return null;
     }
-    
+
 }

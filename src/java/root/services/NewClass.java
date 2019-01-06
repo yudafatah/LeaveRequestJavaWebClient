@@ -23,11 +23,11 @@ public class NewClass {
     public static void main(String[] args) {
         LeaveRequestServices lrs = new LeaveRequestServices();
 //        ArrayList<String> getalllist = lrs.getLRListRelation("2");
-//        ArrayList<HashMap<String, Object>> getalllist1 = lrs.getAllLRASManager("2");
-//        for (int i = 0; i < getalllist1.size(); i++) {
-//            System.out.println(getalllist1.get(i).get("image"));
-//            System.out.println(getalllist.get(i).get("lrId") + " : " + getalllist1.get(i).get("empname") + " - " + getalllist.get(i).get("requestStatus"));
-//        }
+        ArrayList<HashMap<String, String>> getalllist1 = lrs.getAllLR("ss", "1");
+        for (int i = 0; i < getalllist1.size(); i++) {
+            System.out.println(getalllist1.get(i).get("noteRequest"));
+            //System.out.println(getalllist.get(i).get("lrId") + " : " + getalllist1.get(i).get("empname") + " - " + getalllist.get(i).get("requestStatus"));
+        }
 //        System.out.println(getalllist.get(28));
 //        LeaveRequestServices lrs = new LeaveRequestServices();
 //        ArrayList<HashMap<String, String>> hm = lrs.getLRListRelation("2");
