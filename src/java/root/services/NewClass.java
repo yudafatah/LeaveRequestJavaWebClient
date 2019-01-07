@@ -23,7 +23,7 @@ public class NewClass {
     public static void main(String[] args) {
         LeaveRequestServices lrs = new LeaveRequestServices();
 //        ArrayList<String> getalllist = lrs.getLRListRelation("2");
-        ArrayList<HashMap<String, String>> getalllist1 = lrs.getAllLR("ss", "1");
+        ArrayList<HashMap<String, String>> getalllist1 = lrs.getLRById("1");
         for (int i = 0; i < getalllist1.size(); i++) {
             System.out.println(getalllist1.get(i).get("noteRequest"));
             //System.out.println(getalllist.get(i).get("lrId") + " : " + getalllist1.get(i).get("empname") + " - " + getalllist.get(i).get("requestStatus"));

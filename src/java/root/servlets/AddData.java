@@ -59,7 +59,7 @@ public class AddData extends HttpServlet {
         String email = session.getAttribute("email").toString();
         String fileName = extractFileName.extract(image);
         String savePath = "//Users//ustore//Yuda//bc21//SpringBoot//LeaveRequest//LeaveRequestJavaWebClient//web//images" + File.separator + fileName;
-        String message ="";
+        String message ="fail";
         File fileSave = new File(savePath);
         boolean validation = true;
         response.setContentType("text/html;charset=UTF-8");
@@ -70,7 +70,6 @@ public class AddData extends HttpServlet {
             String cdate = format.format(calendar.getTime());
             EmployeeService es = new EmployeeService();
             ArrayList<HashMap<String, String>> emp = es.getEmployeeByEmail(email);
-            image.write(savePath + File.separator);
             Date a = null;
             Date b = null;
             String startDate = "";
@@ -163,8 +162,9 @@ public class AddData extends HttpServlet {
             if (typelr.contains("Days") && validation==true){
                 if(lrduration>5 && lrduration>(Integer.parseInt(emp.get(0).get("quotaThisyear")))){
                     //image.write(savePath + File.separator);
+                    image.write(savePath + File.separator);
                     LeaveRequestServices lrs = new LeaveRequestServices();
-                    message = lrs.createLR(empid, typelr, startDate, endDate, notereq, savePath);
+                    message = lrs.createLR(empid, typelr, startDate, endDate, notereq,fileName);
                     if(message.contains("Data has been edited")){
                         session.setAttribute("message", message);
                     response.sendRedirect("views/StaffPage.jsp");
@@ -178,8 +178,9 @@ public class AddData extends HttpServlet {
             }
             else if(!typelr.contains("Days") && validation==true){
                 //image.write(savePath + File.separator);
+                image.write(savePath + File.separator);
                 LeaveRequestServices lrs = new LeaveRequestServices();
-                message = lrs.createLR(empid, typelr, startDate, endDate, notereq, savePath);
+                message = lrs.createLR(empid, typelr, startDate, endDate, notereq,fileName);
                 session.setAttribute("message", message);
                 response.sendRedirect("views/StaffPage.jsp");
                 session.setAttribute("status", "success");

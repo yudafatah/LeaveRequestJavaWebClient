@@ -224,16 +224,19 @@ public class LeaveRequestServices {
                     //System.out.println(output);
                     // make output become json object
                     HashMap<String, String> lr = new HashMap<>();
-                    JSONObject jSONObject = new JSONObject(output);
-                    lr.put("lrId", jSONObject.getInt("lrId")+"");
-                    lr.put("requestDate", jSONObject.get("requestDate").toString());
-                    lr.put("startDate", jSONObject.get("startDate").toString());
-                    lr.put("endDate", jSONObject.get("endDate").toString());
-                    lr.put("lrDuration", jSONObject.getInt("lrDuration")+"");
-                    lr.put("noteRequest", jSONObject.getString("noteRequest"));
-                    lr.put("requestStatus", jSONObject.getString("requestStatus"));
-                    lr.put("image", jSONObject.get("image").toString());
-                    lr.put("noteReject", jSONObject.getString("noteReject"));
+                    JSONArray jArray = new JSONArray(output);
+                    JSONObject jobj = jArray.getJSONObject(0);
+                    lr.put("lrId", jobj.getString("lrId"));
+                    lr.put("requestDate", jobj.getString("requestDate"));
+                    lr.put("startDate", jobj.getString("startDate"));
+                    lr.put("endDate", jobj.getString("endDate"));
+                    lr.put("lrDuration", jobj.getString("lrDuration"));
+                    lr.put("noteRequest", jobj.getString("noteRequest"));
+                    lr.put("requestStatus", jobj.getString("requestStatus"));
+                    lr.put("image", jobj.getString("image"));
+                    lr.put("noteReject", jobj.get("noteReject").toString());
+                    lr.put("empName", jobj.getString("empName"));
+                    lr.put("typeLr", jobj.getString("typeLr"));
                     lrList.add(lr);
                 }
                 return lrList;
@@ -252,7 +255,23 @@ public class LeaveRequestServices {
             connection.setRequestMethod("POST");
             connection.setRequestProperty("Accept", "application/json");
             if (connection.getResponseCode() == 200) {
-                return "Data has been edited";
+                return "Data has been approved";
+            }
+        } catch (IOException e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+    
+    public String updateLRReject(String id, String noterej) {
+        try {
+            String webService = "http://localhost:8383/lr/leaverequestreject/" + id + "/" +noterej+"/";
+            URL url = new URL(webService);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("POST");
+            connection.setRequestProperty("Accept", "application/json");
+            if (connection.getResponseCode() == 200) {
+                return "Data has been rejected";
             }
         } catch (IOException e) {
             System.out.println(e);
@@ -276,9 +295,9 @@ public class LeaveRequestServices {
         return null;
     }
 
-    public String createLR(String id, String typelr, String startdate, String enddate, String notereq, String savepath) {
+    public String createLR(String id, String typelr, String startdate, String enddate, String notereq, String image) {
         try {
-            String webService = "http://localhost:8383/lr/leaverequestcreate/" + id + "/" + typelr + "/" + startdate + "/" + enddate + "/" + notereq + "/" + savepath + "/";
+            String webService = "http://localhost:8383/lr/leaverequestcreate/" + id + "/" + typelr + "/" + startdate + "/" + enddate + "/" + notereq + "/"+image+"/";
             URL url = new URL(webService);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("POST");

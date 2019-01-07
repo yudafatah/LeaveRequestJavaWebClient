@@ -27,8 +27,8 @@
             ArrayList<HashMap<String, String>> lr = (ArrayList<HashMap<String, String>>) session.getAttribute("LeaveRequest");
          
             lrid = lr.get(0).get("lrId");
-            empid = "anonim";
-            typelr = "anonim";
+            empid = lr.get(0).get("empName");
+            typelr = lr.get(0).get("typeLr");
             reqdate = lr.get(0).get("requestDate");
             startdate = lr.get(0).get("startDate");
             enddate = lr.get(0).get("endDate");
@@ -86,7 +86,7 @@
                 </div>
             </div>
                 <div class="modal-footer" style="text-align: center; ">
-                <button type="submit" class="btn btn-success btn-block" onclick="return confirm('Are you sure want to APPROVE this leave request?');">Approve</button>
+                <button type="submit" class="btn btn-success btn-block" onclick="return confirm('Are you sure want to Approve this leave request?');">Approve</button>
             </div>
         </form>
     </body>
